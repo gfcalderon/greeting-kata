@@ -68,10 +68,10 @@ class Greeting {
         def splitNames = names*.split(', ').flatten()
         splitNames.each {
             if ( it == it.toUpperCase() ) {
-                shoutNames.push( it )
+                shoutNames.add( it )
             }
             else{
-                normalNames.push( it )
+                normalNames.add( it )
             }
         }
 
