@@ -1,19 +1,21 @@
 package com.flf
 
+import groovy.transform.CompileStatic
+
+//@CompileStatic
 class Greeting {
 
     private static String normalGreet( List names ) {
-
-        def greeting 
+        def greeting
         switch (names.size()) {
             case 1:
                 greeting = "Hello, ${names[0]}."
-                break;
+                break
             case 2:
                 greeting = "Hello, ${names[0]} and ${names[1]}."
-                break;
+                break
             case { it > 2 }:
-                greeting = "Hello"
+                greeting = 'Hello'
                 names.each {
                     if ( it == names.last() ) {
                         greeting += ", and ${it}."
@@ -21,48 +23,43 @@ class Greeting {
                         greeting += ", ${it}"
                     }
                 }
-                break;
+                break
         }
         return greeting
-
     }
 
     private static String shoutGreet( List names ) {
-
-        def greeting 
+        def greeting
         switch (names.size()) {
             case 1:
                 greeting = "HELLO ${names[0]}!"
-                break;
+                break
             case 2:
                 greeting = "HELLO ${names[0]} AND ${names[1]}!"
-                break;
+                break
             case { it > 2 }:
-                greeting = "HELLO "
+                greeting = 'HELLO '
                 names.eachWithIndex { it, i ->
                     switch (i) {
                         case { i == names.size() - 1 }:
                             greeting += "AND ${it}!"
-                            break;
+                            break
                         case { i == names.size() - 2 }:
                             greeting += "${it} "
-                            break;
+                            break
                         default:
                             greeting += "${it}, "
-                            break;
+                            break
                     }
                 }
-                break;
+                break
         }
-        return greeting 
-
+        return greeting
     }
 
     public static String greet( String... names ) {
+        if ( names == null ) { return "Hello, my friend." }
 
-        if ( names == null ) return "Hello, my friend."
-
-        def greetings
         def normalNames = []
         def shoutNames = []
         def splitNames = names*.split(', ').flatten()
@@ -75,8 +72,8 @@ class Greeting {
             }
         }
 
-        if (normalNames && !shoutNames) return normalGreet( normalNames )
-        if (!normalNames && shoutNames) return shoutGreet( shoutNames )
-        if (normalNames && shoutNames) return "${normalGreet( normalNames )} AND ${shoutGreet( shoutNames )}"
+        if (normalNames && !shoutNames) { return normalGreet( normalNames ) }
+        if (!normalNames && shoutNames) { return shoutGreet( shoutNames ) }
+        if (normalNames && shoutNames) { return "${normalGreet( normalNames )} AND ${shoutGreet( shoutNames )}" }
     }
 }
